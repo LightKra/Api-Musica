@@ -150,7 +150,10 @@ class TrackController{
             const oldFilename = req.oldFilename.filename;
             const trackService = new TrackService();
             const {rows, fields} = await trackService.deleteId(id);
-            removeStorage(oldFilename);
+            const responseObjectDelete = await deleteObject({
+                Bucket: "storage44",
+                Key: oldFilename
+            });
             res.status(200).json({message: "Dato eliminado", result: [true]});
         }catch(error){
             res.status(500).json({message: "No se pudo eliminar track", result: [{error: error.message}]});
