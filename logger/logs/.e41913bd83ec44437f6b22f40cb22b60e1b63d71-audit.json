@@ -6,14 +6,9 @@
     "auditLog": "D:\\Programacion\\Ejercicios\\Node\\API REST 1\\logger\\logs\\.e41913bd83ec44437f6b22f40cb22b60e1b63d71-audit.json",
     "files": [
         {
-            "date": 1717886751392,
-            "name": "D:\\Programacion\\Ejercicios\\Node\\API REST 1\\logger\\logs\\app-2024-06-08.log",
-            "hash": "64ec42c3835e310893cb6fc09bba662ff38cf0c91ef0c2eca3c61272b1ea1aab"
-        },
-        {
-            "date": 1718049998508,
-            "name": "D:\\Programacion\\Ejercicios\\Node\\API REST 1\\logger\\logs\\app-2024-06-10.log",
-            "hash": "97dcb158b6fea8279cfa5ce25fcaabfb072437d743052b9a5d6f8e32b061b02f"
+            "date": 1720356642548,
+            "name": "D:\\Programacion\\Ejercicios\\Node\\API REST 1\\logger\\logs\\app-2024-07-07.log",
+            "hash": "a44e304f4b23bf6f2bff4ea57a37628ecb445874ec83f4934bb71ee2b15d0e08"
         }
     ],
     "hashType": "sha256"

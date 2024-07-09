@@ -19,6 +19,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(RateLimit.generalLimit());
 app.use("/api",routes);
 app.use(express.static(`${__dirname}/storage`));
+app.use("trust proxy", 1);
 app.use((err, req, res, next)=>{
     logs.error({
         message: err.message,
