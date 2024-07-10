@@ -10,13 +10,7 @@ const {jsonMorgan} = require("./logger/loggerMorgan");
 const routes = require("./routes/main");
 const app = express();
 const port = process.env.PORT || 3000;
-const corsOptions = {
-    origin: '206.84.198.4', // Reemplaza con el origen de tu aplicación cliente
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, // Permitir credenciales si es necesario
-    optionsSuccessStatus: 204 // Para algunas navegadores legacy
-  };
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(helmet());
 morgan(app,jsonMorgan);
