@@ -33,11 +33,23 @@ const uploadMiddleware = (req, res, next)=>{
             if(err){
                 return res.status(500).json({message: "Error al subir archivo", result: [false]});
             }
+            logs.error({
+                message: err.message,
+                name: err.name,
+                stack: err.stack,
+                data: "Error al subir archivo"
+            })
             fs.renameSync(path.resolve(`${__dirname}/`,"../","storage/",`${file.name}`),path.resolve(`${__dirname}/`,"../","storage/",`${newName}`));
             req.customFile = {name: newName}
             next();
         });
     }catch(error){
+        logs.error({
+            message: error.message,
+            name: error.name,
+            stack: error.stack,
+            data: "Error al subir archivo"
+        })
         res.status(500).json({message: "Error al subir archivo", result: [false]});
     }
 }
