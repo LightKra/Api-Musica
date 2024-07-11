@@ -31,7 +31,7 @@ const uploadMiddleware = (req, res, next)=>{
         }
         file.mv(uploadPath, function(err){
             if(err){
-                return res.status(500).json({message: "Error al subir archivo", result: [false]});
+                return res.status(500).json({message: "Error al subir archivo", result: [{error: err.message}]});
             }
             logs.error({
                 message: err.message,
@@ -50,7 +50,7 @@ const uploadMiddleware = (req, res, next)=>{
             stack: error.stack,
             data: "Error al subir archivo"
         })
-        res.status(500).json({message: "Error al subir archivo", result: [false]});
+        res.status(500).json({message: "Error al subir archivo", result: [{error: error.message}]});
     }
 }
 module.exports = {uploadMiddleware};
