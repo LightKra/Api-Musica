@@ -10,6 +10,7 @@ const {jsonMorgan} = require("./logger/loggerMorgan");
 const routes = require("./routes/main");
 const app = express();
 const port = process.env.PORT || 3000;
+app.use(fileUpload());
 app.use(cors({origin: true, 
             credentials: true, 
             methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos permitidos
@@ -17,7 +18,6 @@ app.use(cors({origin: true,
 app.use(express.json());
 app.use(helmet());
 morgan(app,jsonMorgan);
-app.use(fileUpload());
 app.use(express.urlencoded({extended: true}));
 app.use(RateLimit.generalLimit());
 app.use("/api",routes);
