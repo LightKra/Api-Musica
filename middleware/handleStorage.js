@@ -2,6 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const {generatorsId} = require("../utils/utils");
 const logs = require("../logger/logger");
+
 const uploadMiddleware = (req, res, next)=>{
     try{
         let file;
@@ -31,7 +32,7 @@ const uploadMiddleware = (req, res, next)=>{
         }
         file.mv(uploadPath, function(err){
             if(err){
-                return res.status(500).json({message: "Error al subir archivo", result: [{error: err.message}]});
+                return res.status(500).json({message: "Error al subir archivo 1", result: [{error: err.message}]});
             }
             logs.error({
                 message: err.message,
@@ -50,7 +51,7 @@ const uploadMiddleware = (req, res, next)=>{
             stack: error.stack,
             data: "Error al subir archivo"
         })
-        res.status(500).json({message: "Error al subir archivo", result: [{error: error.message}]});
+        res.status(500).json({message: "Error al subir archivo 2", result: [{error: error.message}]});
     }
 }
 module.exports = {uploadMiddleware};
