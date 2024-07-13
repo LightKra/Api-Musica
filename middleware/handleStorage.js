@@ -7,7 +7,7 @@ const uploadMiddleware = (req, res, next)=>{
     try{
         let file;
         let uploadPath;
-        if(req.files === null){
+        if(req.files === null || typeof req.files === "undefined"){
             return res.status(400).json({message: "Archivo no subido", result: [false]});
         }
         const arrayKeys = Object.keys(req.files);
