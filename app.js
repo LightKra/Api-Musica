@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const fileUpload = require("express-fileupload")
 const cors = require("cors");
-const helmet = require('helmet');
 const morgan = require("morgan-body");
 const RateLimit = require("./middleware/rateLimit");
 const logs = require("./logger/logger");
@@ -16,7 +15,6 @@ app.use(cors({origin: "*",
             allowedHeaders: 'Content-Type,Authorization,Access-Control-Allow-Headers'}));
 app.use(fileUpload());
 app.use(express.json());
-app.use(helmet());
 morgan(app,jsonMorgan);
 app.use(express.urlencoded({extended: true}));
 app.use(RateLimit.generalLimit());
