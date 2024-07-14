@@ -9,7 +9,10 @@ const {jsonMorgan} = require("./logger/loggerMorgan");
 const routes = require("./routes/main");
 const app = express();
 const port = process.env.PORT || 3000;
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5500',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }));
 app.use(fileUpload());
 app.use(express.json());
 morgan(app,jsonMorgan);
