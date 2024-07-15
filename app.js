@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const fileUpload = require("express-fileupload")
-const cors = require("cors");
 const morgan = require("morgan-body");
 const RateLimit = require("./middleware/rateLimit");
 const logs = require("./logger/logger");
@@ -9,29 +8,27 @@ const {jsonMorgan} = require("./logger/loggerMorgan");
 const routes = require("./routes/main");
 const app = express();
 const port = process.env.PORT || 3000;
-app.use(cors({
-    origin: ['http://127.0.0.1:5500', 'http://localhost:5500'],
-    allowedHeaders: ['Content-Type', 'authorization'],
-    methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'] ,
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }));
+app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    const allowedOrigins = ['http://127.0.0.1:5500', 'http://localhost:5500'];
+    if (allowedOrigins.includes(origin)) {
+      res.header('Access-Control-Allow-Origin', origin);
+    }
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, authorization');
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, PATCH');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    if (req.method === 'OPTIONS') {
+      return res.sendStatus(200);
+    }
+    next();
+  });
+  
 app.set('trust proxy', true);
 app.use(RateLimit.generalLimit());
 app.use(fileUpload());
 app.use(express.json());
 morgan(app,jsonMorgan);
 app.use(express.urlencoded({extended: true}));
-app.get("/origin", (req, res)=>{
-    const org = req.headers.origin;
-    if (org) {
-        res.status(200).json({ origin: org });
-    } else {
-        res.status(400).json({ error: "Origin header not present" });
-    }
-});
-app.get("/origin2", (req, res)=>{
-    res.status(200).json({origin: "ok"});
-});
 app.use("/api",routes);
 app.use(express.static(`${__dirname}/storage`));
 app.use((err, req, res, next)=>{
