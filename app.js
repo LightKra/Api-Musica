@@ -21,7 +21,7 @@ app.use(fileUpload());
 app.use(express.json());
 morgan(app,jsonMorgan);
 app.use(express.urlencoded({extended: true}));
-app.use("/origin", (req, res)=>{
+app.get("/origin", (req, res)=>{
     const org = req.headers.origin;
     res.status(200).json({origin: org});
 })
