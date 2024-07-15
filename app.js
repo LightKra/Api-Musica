@@ -9,18 +9,18 @@ const {jsonMorgan} = require("./logger/loggerMorgan");
 const routes = require("./routes/main");
 const app = express();
 const port = process.env.PORT || 3000;
-app.set('trust proxy', true);
 app.use(cors({
     origin: ['http://127.0.0.1:5500', 'http://localhost:5500'],
     allowedHeaders: ['Content-Type', 'authorization'],
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'] ,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }));
+app.set('trust proxy', true);
+app.use(RateLimit.generalLimit());
 app.use(fileUpload());
 app.use(express.json());
 morgan(app,jsonMorgan);
 app.use(express.urlencoded({extended: true}));
-app.use(RateLimit.generalLimit());
 app.use("/api",routes);
 app.use(express.static(`${__dirname}/storage`));
 app.use((err, req, res, next)=>{
