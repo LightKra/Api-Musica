@@ -9,11 +9,11 @@ const {jsonMorgan} = require("./logger/loggerMorgan");
 const routes = require("./routes/main");
 const app = express();
 const port = process.env.PORT || 3000;
+app.set('trust proxy', true);
 app.use(cors({
     origin: ['http://127.0.0.1:5500', 'http://localhost:5500'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'authorization'],
+    allowedHeaders: ['Content-Type', 'authorization'],
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'] ,
-    credentials: true,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }));
 app.use(fileUpload());
