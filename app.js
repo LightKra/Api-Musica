@@ -21,6 +21,8 @@ app.use(fileUpload());
 app.use(express.json());
 morgan(app,jsonMorgan);
 app.use(express.urlencoded({extended: true}));
+app.get('/ip', (request, response) => response.send(request.ip));
+app.get('/x-forwarded-for', (request, response) => response.send(request.headers['x-forwarded-for']))
 app.use("/api",routes);
 app.use(express.static(`${__dirname}/storage`));
 app.use((err, req, res, next)=>{
