@@ -24,7 +24,10 @@ app.use(express.urlencoded({extended: true}));
 app.get("/origin", (req, res)=>{
     const org = req.headers.origin;
     res.status(200).json({origin: org});
-})
+});
+app.get("/origin2", (req, res)=>{
+    res.status(200).json({origin: "ok"});
+});
 app.use("/api",routes);
 app.use(express.static(`${__dirname}/storage`));
 app.use((err, req, res, next)=>{
