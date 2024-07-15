@@ -23,7 +23,11 @@ morgan(app,jsonMorgan);
 app.use(express.urlencoded({extended: true}));
 app.get("/origin", (req, res)=>{
     const org = req.headers.origin;
-    res.status(200).json({origin: org});
+    if (org) {
+        res.status(200).json({ origin: org });
+    } else {
+        res.status(400).json({ error: "Origin header not present" });
+    }
 });
 app.get("/origin2", (req, res)=>{
     res.status(200).json({origin: "ok"});
