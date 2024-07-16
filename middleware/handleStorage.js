@@ -11,12 +11,13 @@ const uploadMiddleware = (req, res, next)=>{
             return res.status(400).json({message: "Archivo no subido", result: [false]});
         }
         const arrayKeys = Object.keys(req.files);
-        if(!req.files || arrayKeys.length===0){
-        return res.status(400).json({message: "Archivo no subido", result: [false]});
+        if(arrayKeys.length===0){
+            return res.status(400).json({message: "Archivo no subido", result: [false]});
         }
         if(arrayKeys[0] === "undefined" || arrayKeys[0] !=="myfile"){
             return res.status(400).json({message: "Archivo no subido", result: [false]});
         }
+  
         if(req.files.myfile.constructor.toString().includes("Array")){
             return res.status(400).json({message: "Archivo no subido", result: [false]});
         }
@@ -35,10 +36,7 @@ const uploadMiddleware = (req, res, next)=>{
                 return res.status(500).json({message: "Error al subir archivo 1", result: [{error: err.message}]});
             }
             logs.error({
-                message: err.message,
-                name: err.name,
-                stack: err.stack,
-                data: "Error al subir archivo"
+                data: "Error al subir archivo, file.mv()"
             })
             fs.renameSync(path.resolve(`${__dirname}/`,"../","storage/",`${file.name}`),path.resolve(`${__dirname}/`,"../","storage/",`${newName}`));
             req.customFile = {name: newName}

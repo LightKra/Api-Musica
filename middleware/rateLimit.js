@@ -8,7 +8,10 @@ class RateLimit{
             statusCode: 429,
             message: {result: "Demasiadas peticiones, por favor intente mas tarde"},
             keyGenerator: (req, res) => {
-                return req.headers['x-forwarded-for'].split(',')[0] || req.connection.remoteAddress;
+                if(req.headers['x-forwarded-for']){
+                    return req.headers['x-forwarded-for'].split(',')[0];
+                }
+                return req.connection.remoteAddress;
             },
             handler: (req, res, next, options)=>{
                 logs.warn({
