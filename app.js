@@ -2,27 +2,24 @@ require("dotenv").config();
 const express = require("express");
 const fileUpload = require("express-fileupload")
 const morgan = require("morgan-body");
+const cors = require("cors");
 const RateLimit = require("./middleware/rateLimit");
 const logs = require("./logger/logger");
 const {jsonMorgan} = require("./logger/loggerMorgan");
 const routes = require("./routes/main");
 const app = express();
 const port = process.env.PORT || 3000;
-app.use((req, res, next) => {
-    const origin = req.headers.origin;
-    const allowedOrigins = ['http://127.0.0.1:5500', 'http://localhost:5500'];
-    if (allowedOrigins.includes(origin)) {
-      res.header('Access-Control-Allow-Origin', origin);
-    }
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, authorization');
-    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, PATCH');
-    console.log(`Origin: ${origin}`);
-    console.log(`Header: ${JSON.stringify(req.headers)}`);
-    if (req.method === 'OPTIONS') {
-      return res.sendStatus(200);
-    }
-    next();
-  });
+app.use(cors({
+    origin: 'http://127.0.0.1:5500', // Cambia esto según tu entorno
+    methods: ['POST', 'GET', 'OPTIONS'], // Métodos permitidos
+    allowedHeaders: [
+        'Origin',
+        'X-Requested-With',
+        'Content-Type',
+        'Accept',
+        'Authorization'
+    ]
+}));
   
 app.set('trust proxy', true);
 app.use(RateLimit.generalLimit());
