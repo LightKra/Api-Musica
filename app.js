@@ -11,15 +11,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 app.use(cors({
     origin: 'http://127.0.0.1:5500', // Cambia esto según tu entorno
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // Métodos permitidos
-    allowedHeaders: [
-        'Origin',
-        'X-Requested-With',
-        'Content-Type',
-        'Accept',
-        'Authorization',
-        'authorization'
-    ]
+    methods:"GET,HEAD,PUT,PATCH,POST,DELETE", // Métodos permitidos
+    allowedHeaders: "Content-Type,Authorization,authorization"
 }));
   
 app.set('trust proxy', true);
