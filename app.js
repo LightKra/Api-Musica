@@ -17,7 +17,8 @@ app.use(cors({
         'X-Requested-With',
         'Content-Type',
         'Accept',
-        'Authorization'
+        'Authorization',
+        'authorization'
     ]
 }));
   
