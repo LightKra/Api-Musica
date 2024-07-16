@@ -9,13 +9,14 @@ const routes = require("./routes/main");
 const app = express();
 const port = process.env.PORT || 3000;
 app.use((req, res, next) => {
-    const origin = req.headers.origin;
+    const origin = req.header.origin;
     const allowedOrigins = ['http://127.0.0.1:5500', 'http://localhost:5500'];
     if (allowedOrigins.includes(origin)) {
       res.header('Access-Control-Allow-Origin', origin);
     }
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, authorization');
     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, PATCH');
+    console.log(`Header: ${req.header}`)
     if (req.method === 'OPTIONS') {
       return res.sendStatus(200);
     }
