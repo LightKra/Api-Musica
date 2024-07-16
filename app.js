@@ -11,7 +11,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 app.use(cors({
     origin: 'http://127.0.0.1:5500', // Cambia esto según tu entorno
-    methods: ['POST', 'GET', 'OPTIONS'], // Métodos permitidos
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // Métodos permitidos
     allowedHeaders: [
         'Origin',
         'X-Requested-With',
