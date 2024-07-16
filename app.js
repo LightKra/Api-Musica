@@ -9,13 +9,12 @@ const {jsonMorgan} = require("./logger/loggerMorgan");
 const routes = require("./routes/main");
 const app = express();
 const port = process.env.PORT || 3000;
+app.set('trust proxy', true);
 app.use(cors({
-    origin: 'http://127.0.0.1:5500', // Cambia esto según tu entorno
+    origin: '*', // Cambia esto según tu entorno
     methods:"GET,HEAD,PUT,PATCH,POST,DELETE", // Métodos permitidos
     allowedHeaders: "Content-Type,Authorization,authorization"
 }));
-  
-app.set('trust proxy', true);
 app.use(RateLimit.generalLimit());
 app.use(fileUpload());
 app.use(express.json());
